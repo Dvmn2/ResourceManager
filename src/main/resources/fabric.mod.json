@@ -3,9 +3,10 @@
   "id": "resourceitems",
   "version": "${version}",
   "name": "Resource Items",
-  "description": "Allows player to see all available renaming for items through the anvil!",
+  "description": "Allows player to see all available renaming and remodeling for items!",
   "authors": [
-    "SpogBOT"
+    "SpogBOT",
+    "DVMN2"
   ],
   "contact": {},
   "license": "All-Rights-Reserved",

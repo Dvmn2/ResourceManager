@@ -29,14 +29,10 @@ import java.util.List;
  */
 public final class CustomModelDataVariantHandler implements ItemDefinitionHandler {
 
-    /** В компоненте custom_model_data нас интересует нулевой строковый слот. */
-    private static final int STRING_COMPONENT_INDEX = 0;
-
     @Override
     public boolean matches(JsonObject model) {
         return endsWith(model, "type", "select")
                 && endsWith(model, "property", "custom_model_data")
-                && model.has("index") && model.get("index").getAsInt() == STRING_COMPONENT_INDEX
                 && model.has("cases");
     }
 
@@ -86,7 +82,9 @@ public final class CustomModelDataVariantHandler implements ItemDefinitionHandle
         ScannedItemsRegistry.CUSTOM_MODEL_DATA_ENTRIES.add(stack);
     }
 
-    /** {@code "when"} может быть как одиночной строкой, так и массивом значений. */
+    /**
+     * {@code "when"} может быть как одиночной строкой, так и массивом значений.
+     */
     private List<String> readWhenAsList(JsonElement whenElement) {
         List<String> values = new ArrayList<>();
         if (whenElement.isJsonArray()) {
