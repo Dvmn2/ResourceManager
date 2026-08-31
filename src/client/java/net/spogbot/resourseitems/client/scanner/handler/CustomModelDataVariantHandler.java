@@ -72,11 +72,8 @@ public final class CustomModelDataVariantHandler implements ItemDefinitionHandle
                 List.of()                // colors
         ));
 
-        // Небольшое улучшение по сравнению с оригиналом: подписываем
-        // предмет значением варианта, иначе во вкладке было бы много
-        // одинаковых на вид записей, которые нельзя отличить друг от друга.
         stack.set(DataComponentTypes.CUSTOM_NAME,
-                Text.literal(baseItem.getName().getString() + " [" + primaryValue + "]")
+                Text.literal(baseItem.getName().getString() + " [" + String.join(", ", variantValues) + "]")
                         .styled(style -> style.withItalic(false)));
 
         ScannedItemsRegistry.CUSTOM_MODEL_DATA_ENTRIES.add(stack);

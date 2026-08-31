@@ -3,18 +3,14 @@ package net.spogbot.resourseitems.client.scanner.handler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.spogbot.resourseitems.client.registry.ScannedItemsRegistry;
-import net.spogbot.resourseitems.client.util.NbtUtils;
-import net.spogbot.resourseitems.client.util.ResourcePackUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,21 +54,16 @@ public final class CustomNameVariantHandler implements ItemDefinitionHandler {
         String uniqueKey = resource.getPackId() + ":" + itemId + ":" + primaryName;
         if (!ScannedItemsRegistry.markCustomNameSeen(uniqueKey)) return; // уже добавлен ранее
 
-        ItemStack stack = new ItemStack(baseItem);
-
-        // Сохраняем все альтернативные (синонимичные) имена и пак-источник
-        // в NBT, чтобы их можно было показать в тултипе просмотра.
-        NbtCompound customData = new NbtCompound();
-        customData.put("alternative_names", NbtUtils.stringListToNbt(alternativeNames));
-        customData.putString("pack_name", ResourcePackUtils.displayName(resource));
-
-        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(customData));
-        stack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(primaryName));
-
-        ScannedItemsRegistry.CUSTOM_NAME_ENTRIES.add(stack);
+        for (String name : alternativeNames) {
+            ItemStack stack = new ItemStack(baseItem);
+            stack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(name));
+            ScannedItemsRegistry.CUSTOM_NAME_ENTRIES.add(stack);
+        }
     }
 
-    /** {@code "when"} может быть как одиночной строкой, так и массивом синонимов. */
+    /**
+     * {@code "when"} может быть как одиночной строкой, так и массивом синонимов.
+     */
     private List<String> readWhenAsList(JsonElement whenElement) {
         List<String> names = new ArrayList<>();
         if (whenElement.isJsonArray()) {
