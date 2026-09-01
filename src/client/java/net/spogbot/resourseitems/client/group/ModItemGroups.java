@@ -103,6 +103,15 @@ public final class ModItemGroups {
 
         ItemGroup searchTab = Registries.ITEM_GROUP.get(ItemGroups.SEARCH);
         if (searchTab != null) searchTab.updateEntries(context);
+
+        // Должно пересобирать поисковый индекс MinecraftClient#getSearchManager(),
+        // которым пользуется текстовое поле поиска в крео-инвентаре.
+        // Однако оно просто не работает...
+        ItemGroups.updateDisplayContext(
+                context.enabledFeatures(),
+                context.hasPermissions(),
+                context.lookup()
+        );
     }
 
     /**
