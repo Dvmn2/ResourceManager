@@ -1,8 +1,0 @@
-{
-  "itemGroup.resourceitems.item_model": "Модели предметов",
-  "itemGroup.resourceitems.custom_model_data": "Custom Model Data",
-  "itemGroup.resourceitems.custom_name": "Custom Name",
-  "itemGroup.resourceitems.item_model.empty": "Модели не найдены",
-  "itemGroup.resourceitems.custom_model_data.empty": "Нет предметов с custom model data",
-  "itemGroup.resourceitems.custom_name.empty": "Нет переименнованных предметов"
-}

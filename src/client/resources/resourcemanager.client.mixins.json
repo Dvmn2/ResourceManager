@@ -1,9 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.spogbot.resourseitems.mixins",
+  "package": "net.dvmn2.resourcemanager.client.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+  ],
+  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

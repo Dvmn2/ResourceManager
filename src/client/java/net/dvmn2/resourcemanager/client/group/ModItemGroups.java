@@ -1,5 +1,7 @@
-package net.spogbot.resourseitems.client.group;
+package net.dvmn2.resourcemanager.client.group;
 
+import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
+import net.dvmn2.resourcemanager.client.util.ModConstants;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemGroup;
@@ -13,8 +15,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.spogbot.resourseitems.client.registry.ScannedItemsRegistry;
-import net.spogbot.resourseitems.client.util.ModConstants;
 
 import java.util.List;
 
@@ -54,26 +54,26 @@ public final class ModItemGroups {
     public static void registerAll() {
         Registry.register(Registries.ITEM_GROUP, ITEM_MODEL_TAB_KEY, FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Items.PAINTING))
-                .displayName(Text.translatable("itemGroup.resourceitems.item_model"))
+                .displayName(Text.translatable("itemGroup.resourcemanager.item_model"))
                 .entries((context, entries) -> addEntriesOrPlaceholder(
                         ScannedItemsRegistry.ITEM_MODEL_ENTRIES, entries,
-                        Text.translatable("itemGroup.resourceitems.item_model.empty")))
+                        Text.translatable("itemGroup.resourcemanager.item_model.empty")))
                 .build());
 
         Registry.register(Registries.ITEM_GROUP, CUSTOM_MODEL_DATA_TAB_KEY, FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Items.REDSTONE_BLOCK))
-                .displayName(Text.translatable("itemGroup.resourceitems.custom_model_data"))
+                .displayName(Text.translatable("itemGroup.resourcemanager.custom_model_data"))
                 .entries((context, entries) -> addEntriesOrPlaceholder(
                         ScannedItemsRegistry.CUSTOM_MODEL_DATA_ENTRIES, entries,
-                        Text.translatable("itemGroup.resourceitems.custom_model_data.empty")))
+                        Text.translatable("itemGroup.resourcemanager.custom_model_data.empty")))
                 .build());
 
         Registry.register(Registries.ITEM_GROUP, CUSTOM_NAME_TAB_KEY, FabricItemGroup.builder()
                 .icon(() -> new ItemStack(Items.NAME_TAG))
-                .displayName(Text.translatable("itemGroup.resourceitems.custom_name"))
+                .displayName(Text.translatable("itemGroup.resourcemanager.custom_name"))
                 .entries((context, entries) -> addEntriesOrPlaceholder(
                         ScannedItemsRegistry.CUSTOM_NAME_ENTRIES, entries,
-                        Text.translatable("itemGroup.resourceitems.custom_name.empty")))
+                        Text.translatable("itemGroup.resourcemanager.custom_name.empty")))
                 .build());
     }
 

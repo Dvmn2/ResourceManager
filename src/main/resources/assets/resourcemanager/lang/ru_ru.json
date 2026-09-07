@@ -1,0 +1,8 @@
+{
+  "itemGroup.resourcemanager.item_model": "Модели предметов",
+  "itemGroup.resourcemanager.custom_model_data": "Custom Model Data",
+  "itemGroup.resourcemanager.custom_name": "Custom Name",
+  "itemGroup.resourcemanager.item_model.empty": "Модели не найдены",
+  "itemGroup.resourcemanager.custom_model_data.empty": "Нет предметов с custom model data",
+  "itemGroup.resourcemanager.custom_name.empty": "Нет переименнованных предметов"
+}

@@ -1,7 +1,10 @@
-package net.spogbot.resourseitems.client.scanner.handler;
+package net.dvmn2.resourcemanager.client.scanner.handler;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
+import net.dvmn2.resourcemanager.client.util.NbtUtils;
+import net.dvmn2.resourcemanager.client.util.ResourcePackUtils;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
 import net.minecraft.component.type.NbtComponent;
@@ -13,9 +16,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.spogbot.resourseitems.client.registry.ScannedItemsRegistry;
-import net.spogbot.resourseitems.client.util.NbtUtils;
-import net.spogbot.resourseitems.client.util.ResourcePackUtils;
 
 import java.util.ArrayList;
 import java.util.List;

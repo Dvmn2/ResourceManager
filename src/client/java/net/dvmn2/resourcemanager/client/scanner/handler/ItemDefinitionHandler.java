@@ -1,4 +1,4 @@
-package net.spogbot.resourseitems.client.scanner.handler;
+package net.dvmn2.resourcemanager.client.scanner.handler;
 
 import com.google.gson.JsonObject;
 import net.minecraft.resource.Resource;
@@ -12,13 +12,15 @@ import net.minecraft.util.Identifier;
  */
 public interface ItemDefinitionHandler {
 
-    /** Соответствует ли форма JSON-объекта {@code "model"} этому обработчику. */
+    /**
+     * Соответствует ли форма JSON-объекта {@code "model"} этому обработчику.
+     */
     boolean matches(JsonObject model);
 
     /**
      * Обрабатывает совпавший объект {@code "model"}: извлекает нужные
      * данные и, при необходимости, добавляет новую запись в
-     * соответствующий список {@link net.spogbot.resourseitems.client.registry.ScannedItemsRegistry}.
+     * соответствующий список {@link net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry}.
      *
      * @param itemId   идентификатор базового предмета (вычислен из пути файла в "items/")
      * @param model    JSON-объект поля {@code "model"}

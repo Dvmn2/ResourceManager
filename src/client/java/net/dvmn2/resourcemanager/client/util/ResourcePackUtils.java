@@ -1,8 +1,10 @@
-package net.spogbot.resourseitems.client.util;
+package net.dvmn2.resourcemanager.client.util;
 
 import net.minecraft.resource.Resource;
 
-/** Вспомогательные функции для работы с метаданными ресурспаков. */
+/**
+ * Вспомогательные функции для работы с метаданными ресурспаков.
+ */
 public final class ResourcePackUtils {
 
     private ResourcePackUtils() {

@@ -7,7 +7,7 @@
 ## Структура пакетов
 
 ```
-net.spogbot.resourseitems.client
+net.dvmn2.resourcemanager.client
 ├── ResourseitemsClient.java        — точка входа клиента (ClientModInitializer)
 ├── util/
 │   ├── ModConstants.java           — MOD_ID и прочие константы
@@ -71,7 +71,7 @@ net.spogbot.resourseitems.client
    ```json
    "entrypoints": {
      "client": [
-       "net.spogbot.resourseitems.client.ResourseitemsClient"
+       "net.dvmn2.resourcemanager.client.ResourceManagerClient"
      ]
    }
    ```

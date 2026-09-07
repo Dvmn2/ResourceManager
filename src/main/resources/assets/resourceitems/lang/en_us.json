@@ -1,8 +1,0 @@
-{
-  "itemGroup.resourceitems.item_model": "Item Models",
-  "itemGroup.resourceitems.custom_model_data": "Custom Model Data",
-  "itemGroup.resourceitems.custom_name": "Custom Name",
-  "itemGroup.resourceitems.item_model.empty": "No item models found",
-  "itemGroup.resourceitems.custom_model_data.empty": "No custom model data items found",
-  "itemGroup.resourceitems.custom_name.empty": "No renamed items found"
-}

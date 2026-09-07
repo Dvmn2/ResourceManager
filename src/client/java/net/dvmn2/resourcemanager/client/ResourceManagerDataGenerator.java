@@ -1,4 +1,4 @@
-package net.spogbot.resourseitems.client;
+package net.dvmn2.resourcemanager.client;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
  * fabric.mod.json) на случай, если в будущем понадобится генерировать,
  * например, локализацию для переводимых текстов ("gui.title.items" и т.п.).
  */
-public class ResourseitemsDataGenerator implements DataGeneratorEntrypoint {
+public class ResourceManagerDataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

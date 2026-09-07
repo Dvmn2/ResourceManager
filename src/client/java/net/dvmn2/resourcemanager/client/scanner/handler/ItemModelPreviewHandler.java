@@ -1,13 +1,13 @@
-package net.spogbot.resourseitems.client.scanner.handler;
+package net.dvmn2.resourcemanager.client.scanner.handler;
 
 import com.google.gson.JsonObject;
+import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.spogbot.resourseitems.client.registry.ScannedItemsRegistry;
 
 /**
  * Обрабатывает обычные ({@code "model"}-type) item definition'ы —

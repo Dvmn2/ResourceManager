@@ -1,13 +1,13 @@
-package net.spogbot.resourseitems.client.scanner;
+package net.dvmn2.resourcemanager.client.scanner;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.dvmn2.resourcemanager.client.scanner.handler.CustomModelDataVariantHandler;
+import net.dvmn2.resourcemanager.client.scanner.handler.CustomNameVariantHandler;
+import net.dvmn2.resourcemanager.client.scanner.handler.ItemDefinitionHandler;
+import net.dvmn2.resourcemanager.client.scanner.handler.ItemModelPreviewHandler;
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
-import net.spogbot.resourseitems.client.scanner.handler.CustomModelDataVariantHandler;
-import net.spogbot.resourseitems.client.scanner.handler.CustomNameVariantHandler;
-import net.spogbot.resourseitems.client.scanner.handler.ItemDefinitionHandler;
-import net.spogbot.resourseitems.client.scanner.handler.ItemModelPreviewHandler;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

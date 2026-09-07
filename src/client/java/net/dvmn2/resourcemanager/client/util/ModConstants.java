@@ -1,4 +1,4 @@
-package net.spogbot.resourseitems.client.util;
+package net.dvmn2.resourcemanager.client.util;
 
 /**
  * Общие константы мода, чтобы не разбрасывать "магические строки" по
@@ -6,8 +6,10 @@ package net.spogbot.resourseitems.client.util;
  */
 public final class ModConstants {
 
-    /** Namespace мода — используется для id вкладок и reload-листенера. */
-    public static final String MOD_ID = "resourceitems";
+    /**
+     * Namespace мода — используется для id вкладок и reload-листенера.
+     */
+    public static final String MOD_ID = "resourcemodels";
 
     private ModConstants() {
     }

@@ -1,5 +1,8 @@
-package net.spogbot.resourseitems.client.scanner;
+package net.dvmn2.resourcemanager.client.scanner;
 
+import net.dvmn2.resourcemanager.client.group.ModItemGroups;
+import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
+import net.dvmn2.resourcemanager.client.util.ModConstants;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
@@ -8,9 +11,6 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.spogbot.resourseitems.client.group.ModItemGroups;
-import net.spogbot.resourseitems.client.registry.ScannedItemsRegistry;
-import net.spogbot.resourseitems.client.util.ModConstants;
 
 import java.util.List;
 import java.util.Map;

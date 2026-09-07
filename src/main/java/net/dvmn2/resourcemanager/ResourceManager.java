@@ -1,8 +1,8 @@
-package net.spogbot.resourseitems;
+package net.dvmn2.resourcemanager;
 
 import net.fabricmc.api.ModInitializer;
 
-public class Resourseitems implements ModInitializer {
+public class ResourceManager implements ModInitializer {
 
     @Override
     public void onInitialize() {
