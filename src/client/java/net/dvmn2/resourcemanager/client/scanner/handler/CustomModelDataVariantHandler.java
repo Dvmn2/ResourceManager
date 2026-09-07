@@ -3,7 +3,6 @@ package net.dvmn2.resourcemanager.client.scanner.handler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
-import net.dvmn2.resourcemanager.client.util.NbtUtils;
 import net.dvmn2.resourcemanager.client.util.ResourcePackUtils;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.CustomModelDataComponent;
@@ -54,14 +53,13 @@ public final class CustomModelDataVariantHandler implements ItemDefinitionHandle
     }
 
     private void registerVariant(Identifier itemId, Item baseItem, List<String> variantValues, Resource resource) {
-        String primaryValue = variantValues.get(0);
+        String primaryValue = variantValues.getFirst();
         String uniqueKey = resource.getPackId() + ":" + itemId + ":" + primaryValue;
         if (!ScannedItemsRegistry.markCustomModelDataSeen(uniqueKey)) return;
 
         ItemStack stack = new ItemStack(baseItem);
 
         NbtCompound customData = new NbtCompound();
-        customData.put("alternative_model_data", NbtUtils.stringListToNbt(variantValues));
         customData.putString("pack_name", ResourcePackUtils.displayName(resource));
         stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(customData));
 

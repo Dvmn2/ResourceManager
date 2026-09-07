@@ -3,10 +3,13 @@ package net.dvmn2.resourcemanager.client.scanner.handler;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
+import net.dvmn2.resourcemanager.client.util.ResourcePackUtils;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
@@ -50,12 +53,15 @@ public final class CustomNameVariantHandler implements ItemDefinitionHandler {
     }
 
     private void registerVariant(Identifier itemId, Item baseItem, List<String> alternativeNames, Resource resource) {
-        String primaryName = alternativeNames.get(0);
+        String primaryName = alternativeNames.getFirst();
         String uniqueKey = resource.getPackId() + ":" + itemId + ":" + primaryName;
         if (!ScannedItemsRegistry.markCustomNameSeen(uniqueKey)) return; // уже добавлен ранее
 
         for (String name : alternativeNames) {
             ItemStack stack = new ItemStack(baseItem);
+            NbtCompound customData = new NbtCompound();
+            customData.putString("pack_name", ResourcePackUtils.displayName(resource));
+            stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(customData));
             stack.set(DataComponentTypes.CUSTOM_NAME, Text.literal(name));
             ScannedItemsRegistry.CUSTOM_NAME_ENTRIES.add(stack);
         }

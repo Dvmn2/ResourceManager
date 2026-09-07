@@ -2,9 +2,12 @@ package net.dvmn2.resourcemanager.client.scanner.handler;
 
 import com.google.gson.JsonObject;
 import net.dvmn2.resourcemanager.client.registry.ScannedItemsRegistry;
+import net.dvmn2.resourcemanager.client.util.ResourcePackUtils;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -44,6 +47,9 @@ public final class ItemModelPreviewHandler implements ItemDefinitionHandler {
         String displayName = fileNameOf(itemId).replace('_', ' ');
 
         ItemStack stack = new ItemStack(Items.PAPER);
+        NbtCompound customData = new NbtCompound();
+        customData.putString("pack_name", ResourcePackUtils.displayName(resource));
+        stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(customData));
         stack.set(DataComponentTypes.ITEM_MODEL, itemId);
         stack.set(DataComponentTypes.CUSTOM_NAME,
                 Text.literal(displayName).styled(style -> style.withItalic(false)));
