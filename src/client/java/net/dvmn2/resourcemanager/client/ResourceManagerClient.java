@@ -30,6 +30,10 @@ import net.fabricmc.api.Environment;
  * Логика сканирования и разбора JSON вынесена в пакет {@code scanner},
  * регистрация вкладок инвентаря — в пакет {@code group}, а общее хранилище
  * найденных предметов — в пакет {@code registry}.
+ * <p>
+ * Локализация названий вкладок и текста-заглушки идёт через стандартный
+ * механизм Minecraft (Text.translatable + assets/resourcemanager/lang/*.json):
+ * язык подбирается автоматически по настройке клиента.
  */
 @Environment(EnvType.CLIENT)
 public class ResourceManagerClient implements ClientModInitializer {

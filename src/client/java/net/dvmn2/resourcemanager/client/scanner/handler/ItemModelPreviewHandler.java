@@ -22,7 +22,20 @@ import net.minecraft.util.Identifier;
  */
 public final class ItemModelPreviewHandler implements ItemDefinitionHandler {
 
-    private static final String VANILLA_NAMESPACE = "minecraft";
+    /**
+     * id встроенного "ресурспака" с базовыми ассетами самой игры. Именно под
+     * этим id лежат item-definition'ы вида "items/stick.json" для КАЖДОГО
+     * ванильного предмета, поэтому их нужно отсеивать — иначе вкладка
+     * item_model showed бы ~1000 стандартных предметов даже без единого
+     * установленного ресурспака.
+     * <p>
+     * Built-in "resource pack" id containing the game's base assets. Every
+     * vanilla item ships a default item-definition (e.g. "items/stick.json")
+     * under this pack id, so it needs to be filtered out — otherwise the
+     * item_model tab would show ~1000 default entries even with zero
+     * resource packs installed.
+     */
+    private static final String VANILLA_PACK_ID = "vanilla";
 
     @Override
     public boolean matches(JsonObject model) {
@@ -32,9 +45,7 @@ public final class ItemModelPreviewHandler implements ItemDefinitionHandler {
 
     @Override
     public void handle(Identifier itemId, JsonObject model, Resource resource) {
-        // Не показываем ванильные предметы — вкладка предназначена именно
-        // для витрины моделей, добавленных ресурспаками.
-        if (itemId.getNamespace().equals(VANILLA_NAMESPACE)) return;
+        if (VANILLA_PACK_ID.equals(resource.getPackId())) return;
         if (!ScannedItemsRegistry.markItemModelSeen(itemId)) return;
 
         // ВАЖНО: компонент ITEM_MODEL ссылается не на файл модели напрямую,
@@ -55,23 +66,6 @@ public final class ItemModelPreviewHandler implements ItemDefinitionHandler {
                 Text.literal(displayName).styled(style -> style.withItalic(false)));
 
         ScannedItemsRegistry.ITEM_MODEL_ENTRIES.add(stack);
-    }
-
-    /**
-     * Пытается прочитать реальный путь модели из поля {@code "model"}
-     * (например {@code "mymod:item/thing"}). Если оно отсутствует или не
-     * является строкой, используем как запасной вариант id самого предмета
-     * — это соответствует распространённой конвенции ресурспаков "путь
-     * предмета совпадает с путём модели".
-     */
-    private Identifier resolveModelId(Identifier itemId, JsonObject model) {
-        if (model.has("model") && model.get("model").isJsonPrimitive()) {
-            String reference = model.get("model").getAsString();
-            return reference.contains(":")
-                    ? Identifier.of(reference)
-                    : Identifier.of(itemId.getNamespace(), reference);
-        }
-        return itemId;
     }
 
     private String fileNameOf(Identifier id) {

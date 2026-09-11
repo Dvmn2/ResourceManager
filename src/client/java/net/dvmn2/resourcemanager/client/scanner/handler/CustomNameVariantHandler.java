@@ -57,6 +57,15 @@ public final class CustomNameVariantHandler implements ItemDefinitionHandler {
         String uniqueKey = resource.getPackId() + ":" + itemId + ":" + primaryName;
         if (!ScannedItemsRegistry.markCustomNameSeen(uniqueKey)) return; // уже добавлен ранее
 
+        // Каждый синоним имени (например ["Zombie", "zombie"]) добавляется
+        // отдельным предметом-превью, потому что игроку нужно ввести в
+        // наковальне ТОЧНО такую строку — показ каждого варианта отдельно
+        // подсказывает все рабочие варианты названия.
+        //
+        // Each name synonym (e.g. ["Zombie", "zombie"]) is added as its own
+        // preview item, because the player must type that EXACT string in
+        // the anvil — showing every variant separately hints at all the
+        // working names.
         for (String name : alternativeNames) {
             ItemStack stack = new ItemStack(baseItem);
             NbtCompound customData = new NbtCompound();

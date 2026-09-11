@@ -60,6 +60,14 @@ public final class ItemDefinitionParser {
             }
         } catch (Exception ignored) {
             // Файл не является валидным JSON-описанием предмета — пропускаем.
+            // Осознанно широкий catch: ресурспаки сторонних авторов могут
+            // содержать невалидный или неожиданно структурированный JSON,
+            // и падать здесь для одного файла не должно ронять весь reload.
+            //
+            // File is not a valid JSON item-definition — skip it.
+            // Intentionally broad catch: third-party resource packs can
+            // ship invalid or unexpectedly structured JSON, and failing on
+            // a single file here should not crash the whole reload.
         }
     }
 

@@ -20,6 +20,12 @@ import java.util.Map;
  * и при каждом нажатии "Done" в экране настройки ресурспаков — заново
  * сканирует все item-definition'ы во всех подключённых паках и
  * распределяет их по трём вкладкам через {@link ItemDefinitionParser}.
+ * <p>
+ * Реализует {@link SimpleSynchronousResourceReloadListener}, то есть
+ * выполняется синхронно на клиентском потоке — поэтому внутри
+ * {@link #reload(ResourceManager)} и {@link #refreshOpenInventoryIfNeeded()}
+ * безопасно обращаться к {@link MinecraftClient#getInstance()} и изменять
+ * общие статические списки в {@link ScannedItemsRegistry} без синхронизации.
  */
 public final class ResourcePackModelScanner implements SimpleSynchronousResourceReloadListener {
 

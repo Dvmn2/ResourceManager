@@ -50,6 +50,19 @@ public final class ModItemGroups {
 
     /**
      * Регистрирует все три вкладки в реестре ItemGroup. Вызывается один раз при инициализации клиента.
+     * <p>
+     * Название вкладки и текст-заглушка берутся из lang-файлов
+     * (assets/resourcemanager/lang/ru_ru.json, en_us.json) через
+     * Text.translatable — язык подбирается автоматически движком по
+     * текущей настройке языка клиента, отдельная логика локализации (как
+     * в серверном плагине CameraManagerPlugin) здесь не нужна.
+     * <p>
+     * Tab titles and the empty-state text come from lang files
+     * (assets/resourcemanager/lang/ru_ru.json, en_us.json) via
+     * Text.translatable — the language is resolved automatically by the
+     * engine from the client's current language setting; no separate
+     * localization logic (like in the CameraManagerPlugin server plugin)
+     * is needed here.
      */
     public static void registerAll() {
         Registry.register(Registries.ITEM_GROUP, ITEM_MODEL_TAB_KEY, FabricItemGroup.builder()
@@ -104,9 +117,21 @@ public final class ModItemGroups {
         ItemGroup searchTab = Registries.ITEM_GROUP.get(ItemGroups.SEARCH);
         if (searchTab != null) searchTab.updateEntries(context);
 
-        // Должно пересобирать поисковый индекс MinecraftClient#getSearchManager(),
-        // которым пользуется текстовое поле поиска в крео-инвентаре.
-        // Однако оно просто не работает...
+        // Известное ограничение (не исправлено, т.к. требует отдельного
+        // разбирательства с внутренним поисковым индексом клиента): этот
+        // вызов должен пересобирать индекс MinecraftClient#getSearchManager(),
+        // которым пользуется текстовое поле поиска в крео-инвентаре, но
+        // фактически не делает этого. Возможный путь к рабочему решению —
+        // миксин в SearchManager с принудительным вызовом переиндексации
+        // после обновления всех вкладок выше.
+        //
+        // Known limitation (not fixed here, needs separate investigation
+        // into the client's internal search index): this call is supposed
+        // to rebuild the index used by MinecraftClient#getSearchManager()
+        // (which backs the search box in the creative inventory), but it
+        // does not actually do so. A possible working fix would be a mixin
+        // into SearchManager that forces re-indexing after the tab updates
+        // above.
         ItemGroups.updateDisplayContext(
                 context.enabledFeatures(),
                 context.hasPermissions(),

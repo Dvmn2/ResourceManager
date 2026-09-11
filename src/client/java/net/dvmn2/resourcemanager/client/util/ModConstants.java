@@ -8,8 +8,9 @@ public final class ModConstants {
 
     /**
      * Namespace мода — используется для id вкладок и reload-листенера.
+     * <p>
      */
-    public static final String MOD_ID = "resourcemodels";
+    public static final String MOD_ID = "resourcemanager";
 
     private ModConstants() {
     }
