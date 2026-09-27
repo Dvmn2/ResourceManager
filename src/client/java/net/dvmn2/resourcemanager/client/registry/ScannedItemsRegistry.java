@@ -11,10 +11,11 @@ import java.util.Set;
 /**
  * Централизованное хранилище результатов сканирования ресурспаков.
  * <p>
- * Три отдельных списка соответствуют трём вкладкам творческого инвентаря:
- * превью моделей предметов ({@code item_model}), варианты по
- * custom_model_data ({@code custom_model_data}) и варианты по custom_name
- * ({@code custom_name}). Списки полностью пересобираются при каждой
+ * Четыре отдельных списка соответствуют четырём вкладкам творческого
+ * инвентаря: превью моделей предметов ({@code item_model}), варианты по
+ * custom_model_data ({@code custom_model_data}), варианты по custom_name
+ * ({@code custom_name}) и варианты брони по equipment asset_id
+ * ({@code equippable}). Списки полностью пересобираются при каждой
  * перезагрузке ресурсов клиента — см. {@link #clear()}.
  */
 public final class ScannedItemsRegistry {
@@ -34,10 +35,18 @@ public final class ScannedItemsRegistry {
      */
     public static final List<ItemStack> CUSTOM_NAME_ENTRIES = new ArrayList<>();
 
+    /**
+     * Вкладка "equippable": варианты брони по equipment asset_id
+     * (assets/&lt;ns&gt;/equipment/&lt;name&gt;.json), по 4 предмета
+     * (шлем/нагрудник/поножи/ботинки) на каждый найденный asset_id.
+     */
+    public static final List<ItemStack> EQUIPPABLE_ENTRIES = new ArrayList<>();
+
     // Наборы для дедупликации записей в рамках одного сканирования.
     private static final Set<Identifier> SEEN_ITEM_MODELS = new HashSet<>();
     private static final Set<String> SEEN_CUSTOM_MODEL_DATA = new HashSet<>();
     private static final Set<String> SEEN_CUSTOM_NAMES = new HashSet<>();
+    private static final Set<String> SEEN_EQUIPPABLE_ASSETS = new HashSet<>();
 
     private ScannedItemsRegistry() {
     }
@@ -49,9 +58,11 @@ public final class ScannedItemsRegistry {
         ITEM_MODEL_ENTRIES.clear();
         CUSTOM_MODEL_DATA_ENTRIES.clear();
         CUSTOM_NAME_ENTRIES.clear();
+        EQUIPPABLE_ENTRIES.clear();
         SEEN_ITEM_MODELS.clear();
         SEEN_CUSTOM_MODEL_DATA.clear();
         SEEN_CUSTOM_NAMES.clear();
+        SEEN_EQUIPPABLE_ASSETS.clear();
     }
 
     /**
@@ -73,5 +84,12 @@ public final class ScannedItemsRegistry {
      */
     public static boolean markCustomNameSeen(String uniqueKey) {
         return SEEN_CUSTOM_NAMES.add(uniqueKey);
+    }
+
+    /**
+     * @return {@code true}, если этот equipment asset_id ещё не встречался.
+     */
+    public static boolean markEquippableAssetSeen(String uniqueKey) {
+        return SEEN_EQUIPPABLE_ASSETS.add(uniqueKey);
     }
 }

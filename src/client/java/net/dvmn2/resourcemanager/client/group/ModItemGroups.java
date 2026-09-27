@@ -19,9 +19,9 @@ import net.minecraft.util.Identifier;
 import java.util.List;
 
 /**
- * Регистрация трёх вкладок творческого инвентаря, отображающих результаты
- * сканирования подключённых ресурспаков: {@code item_model},
- * {@code custom_model_data} и {@code custom_name}.
+ * Регистрация четырёх вкладок творческого инвентаря, отображающих
+ * результаты сканирования подключённых ресурспаков: {@code item_model},
+ * {@code custom_model_data}, {@code custom_name} и {@code equippable}.
  * <p>
  * Если для какой-то вкладки ресурспаки не дали ни одной записи, вместо
  * пустой вкладки показывается один предмет-заглушка с поясняющим именем
@@ -45,11 +45,16 @@ public final class ModItemGroups {
             Identifier.of(ModConstants.MOD_ID, "custom_name_tab")
     );
 
+    public static final RegistryKey<ItemGroup> EQUIPPABLE_TAB_KEY = RegistryKey.of(
+            RegistryKeys.ITEM_GROUP,
+            Identifier.of(ModConstants.MOD_ID, "equippable_tab")
+    );
+
     private ModItemGroups() {
     }
 
     /**
-     * Регистрирует все три вкладки в реестре ItemGroup. Вызывается один раз при инициализации клиента.
+     * Регистрирует все четыре вкладки в реестре ItemGroup. Вызывается один раз при инициализации клиента.
      * <p>
      * Название вкладки и текст-заглушка берутся из lang-файлов
      * (assets/resourcemanager/lang/ru_ru.json, en_us.json) через
@@ -88,19 +93,27 @@ public final class ModItemGroups {
                         ScannedItemsRegistry.CUSTOM_NAME_ENTRIES, entries,
                         Text.translatable("itemGroup.resourcemanager.custom_name.empty")))
                 .build());
+
+        Registry.register(Registries.ITEM_GROUP, EQUIPPABLE_TAB_KEY, FabricItemGroup.builder()
+                .icon(() -> new ItemStack(Items.DIAMOND_CHESTPLATE))
+                .displayName(Text.translatable("itemGroup.resourcemanager.equippable"))
+                .entries((context, entries) -> addEntriesOrPlaceholder(
+                        ScannedItemsRegistry.EQUIPPABLE_ENTRIES, entries,
+                        Text.translatable("itemGroup.resourcemanager.equippable.empty")))
+                .build());
     }
 
     /**
-     * Принудительно обновляет содержимое всех трёх вкладок. Нужно, когда
+     * Принудительно обновляет содержимое всех четырёх вкладок. Нужно, когда
      * игрок уже находится в мире во время перезагрузки ресурсов — иначе
      * новые предметы появились бы только после повторного открытия книги
      * творческого режима.
      * <p>
-     * После своих трёх вкладок дополнительно обновляется ванильная вкладка
+     * После своих вкладок дополнительно обновляется ванильная вкладка
      * "Search Items" ({@link ItemGroups#SEARCH}). Она сама не сканирует
      * предметы, а лишь копирует уже готовый список из всех обычных вкладок
      * в момент своего собственного {@code updateEntries(...)} — поэтому её
-     * нужно обновлять именно ПОСЛЕ наших трёх, иначе после удаления
+     * нужно обновлять именно ПОСЛЕ наших вкладок, иначе после удаления
      * ресурспака в поиске остаются "призрачные" старые записи, хотя сами
      * вкладки мода уже пусты.
      */
@@ -113,6 +126,9 @@ public final class ModItemGroups {
 
         ItemGroup customNameTab = Registries.ITEM_GROUP.get(CUSTOM_NAME_TAB_KEY);
         if (customNameTab != null) customNameTab.updateEntries(context);
+
+        ItemGroup equippableTab = Registries.ITEM_GROUP.get(EQUIPPABLE_TAB_KEY);
+        if (equippableTab != null) equippableTab.updateEntries(context);
 
         ItemGroup searchTab = Registries.ITEM_GROUP.get(ItemGroups.SEARCH);
         if (searchTab != null) searchTab.updateEntries(context);

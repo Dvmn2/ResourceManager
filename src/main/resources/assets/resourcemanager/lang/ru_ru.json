@@ -4,5 +4,7 @@
   "itemGroup.resourcemanager.custom_name": "Имя предмета",
   "itemGroup.resourcemanager.item_model.empty": "Модели не найдены",
   "itemGroup.resourcemanager.custom_model_data.empty": "Нет предметов с custom model data",
-  "itemGroup.resourcemanager.custom_name.empty": "Нет переименованных предметов"
+  "itemGroup.resourcemanager.custom_name.empty": "Нет переименованных предметов",
+  "itemGroup.resourcemanager.equippable": "Броня (equippable)",
+  "itemGroup.resourcemanager.equippable.empty": "Кастомные equipment-ассеты не найдены"
 }

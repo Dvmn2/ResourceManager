@@ -18,8 +18,14 @@ import java.util.Map;
 /**
  * Слушатель перезагрузки клиентских ресурсов. Срабатывает при запуске игры
  * и при каждом нажатии "Done" в экране настройки ресурспаков — заново
- * сканирует все item-definition'ы во всех подключённых паках и
- * распределяет их по трём вкладкам через {@link ItemDefinitionParser}.
+ * сканирует все item-definition'ы и equipment-asset'ы во всех подключённых
+ * паках и распределяет их по четырём вкладкам через
+ * {@link ItemDefinitionParser} и {@link EquipmentAssetParser}.
+ * <p>
+ * Порядок важен: сначала сканируется {@code items/}, и только потом —
+ * {@code equipment/}, потому что {@link EquipmentAssetParser} пытается
+ * подобрать кастомную иконку для брони среди уже найденных записей
+ * вкладки {@code item_model}.
  * <p>
  * Реализует {@link SimpleSynchronousResourceReloadListener}, то есть
  * выполняется синхронно на клиентском потоке — поэтому внутри
@@ -30,8 +36,10 @@ import java.util.Map;
 public final class ResourcePackModelScanner implements SimpleSynchronousResourceReloadListener {
 
     private static final String ITEMS_ROOT = "items";
+    private static final String EQUIPMENT_ROOT = "equipment";
 
-    private final ItemDefinitionParser parser = new ItemDefinitionParser();
+    private final ItemDefinitionParser itemParser = new ItemDefinitionParser();
+    private final EquipmentAssetParser equipmentParser = new EquipmentAssetParser();
 
     /**
      * Регистрирует этот листенер в {@link ResourceManagerHelper} для клиентских ресурсов.
@@ -54,7 +62,15 @@ public final class ResourcePackModelScanner implements SimpleSynchronousResource
                 manager.findAllResources(ITEMS_ROOT, path -> path.getPath().endsWith(".json"));
 
         for (Map.Entry<Identifier, List<Resource>> entry : itemDefinitions.entrySet()) {
-            parser.parseEntry(entry.getKey(), entry.getValue());
+            itemParser.parseEntry(entry.getKey(), entry.getValue());
+        }
+
+        // Сканируется ПОСЛЕ items/ — см. javadoc класса и EquipmentAssetParser.matchIcon.
+        Map<Identifier, List<Resource>> equipmentAssets =
+                manager.findAllResources(EQUIPMENT_ROOT, path -> path.getPath().endsWith(".json"));
+
+        for (Map.Entry<Identifier, List<Resource>> entry : equipmentAssets.entrySet()) {
+            equipmentParser.parseEntry(entry.getKey(), entry.getValue());
         }
 
         refreshOpenInventoryIfNeeded();
@@ -62,7 +78,7 @@ public final class ResourcePackModelScanner implements SimpleSynchronousResource
 
     /**
      * Если игрок уже находится в игровом мире, немедленно обновляет
-     * содержимое всех трёх вкладок, чтобы новые предметы сразу появились
+     * содержимое всех вкладок, чтобы новые предметы сразу появились
      * без перезахода в творческую инвентарную книгу.
      */
     private void refreshOpenInventoryIfNeeded() {

@@ -4,5 +4,7 @@
   "itemGroup.resourcemanager.custom_name": "Custom Name",
   "itemGroup.resourcemanager.item_model.empty": "No item models found",
   "itemGroup.resourcemanager.custom_model_data.empty": "No custom model data items found",
-  "itemGroup.resourcemanager.custom_name.empty": "No renamed items found"
+  "itemGroup.resourcemanager.custom_name.empty": "No renamed items found",
+  "itemGroup.resourcemanager.equippable": "Equippable",
+  "itemGroup.resourcemanager.equippable.empty": "No custom equipment assets found"
 }
