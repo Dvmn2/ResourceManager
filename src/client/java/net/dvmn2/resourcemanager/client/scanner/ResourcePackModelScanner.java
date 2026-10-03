@@ -66,12 +66,20 @@ public final class ResourcePackModelScanner implements SimpleSynchronousResource
         }
 
         // Сканируется ПОСЛЕ items/ — см. javadoc класса и EquipmentAssetParser.matchIcon.
+        // prepareReload() очищает список забранных иконок прошлого reload'а
+        // и перечитывает sounds.json — см. EquipmentAssetParser.resolveEquipSound.
+        equipmentParser.prepareReload(manager);
+
         Map<Identifier, List<Resource>> equipmentAssets =
                 manager.findAllResources(EQUIPMENT_ROOT, path -> path.getPath().endsWith(".json"));
 
         for (Map.Entry<Identifier, List<Resource>> entry : equipmentAssets.entrySet()) {
             equipmentParser.parseEntry(entry.getKey(), entry.getValue());
         }
+
+        // Убираем из вкладки item_model иконки, которые equip-варианты уже
+        // забрали себе — см. EquipmentAssetParser.removeMatchedIconsFromItemModelTab.
+        equipmentParser.removeMatchedIconsFromItemModelTab();
 
         refreshOpenInventoryIfNeeded();
     }
